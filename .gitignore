@@ -1,0 +1,6 @@
+/.idea/
+/src/symfony.lock
+/src/.env
+/.env
+/.docker/data/
+/src/external/

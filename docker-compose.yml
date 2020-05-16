@@ -1,0 +1,44 @@
+version: '2.0'
+
+services:
+    php-fpm:
+        build: .docker/php-fpm
+        volumes:
+            - ./src:/var/www/
+        networks:
+            - balda
+        restart: always
+
+    nginx:
+        build: .docker/nginx
+        environment:
+            APP_ENV: ${APP_ENV}
+        volumes:
+            - ./src:/var/www
+        networks:
+            - balda
+        ports:
+            - '${DOCKER}:80:80'
+        links:
+            - php-fpm
+        restart: always
+
+    mercure:
+        container_name: mercure
+        image: dunglas/mercure
+        environment:
+            - JWT_KEY='!MySecret!'
+            - DEMO=1
+            - ALLOW_ANONYMOUS=1
+            - PUBLISH_ALLOWED_ORIGINS='http://10.10.101.1'
+            - CORS_ALLOWED_ORIGINS='*'
+        ports:
+            - "${DOCKER}:9090:80"
+
+networks:
+    balda:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: ${NETWORK}

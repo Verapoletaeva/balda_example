@@ -1,0 +1,17 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+publish:
+  path: /play/{hash}/status
+  controller: App\Controller\PublishController::publish
+
+play:
+  path: /play/{hash}
+  controller: App\Controller\DefaultController::play
+  methods:  [GET]
+
+status:
+  path: /play/{hash}
+  controller: App\Controller\DefaultController::getStatus
+  methods:  [POST]
