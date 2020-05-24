@@ -4,13 +4,122 @@ table {
 
 table, th, td {
     border: 1px solid black;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
+    text-align: center;
 }
 
 td {
     width: 75px;
     height: 75px;
+    cursor: pointer;
 }
 
-table {
-    margin: 150px auto;
+img {
+    border-radius: 7px;
+}
+
+.block {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    font-style: italic;
+    font-size: 30px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.turn {
+    width: 370px;
+    padding: 10px 10px;
+    margin-top: 20px;
+    border-radius: 7px;
+    background-color: #a8e3ea;
+    text-align: center;
+}
+
+.score {
+    padding: 10px 5%;
+    width: 90%;
+    margin-top: 20px;
+    border-radius: 7px;
+    background-color: #b0ea56;
+}
+
+.name {
+    font-style: italic;
+    font-size: 30px;
+    alignment: center;
+    margin-bottom: 25px;
+}
+
+.green {
+    background-color: greenyellow;
+}
+
+ul {
+    columns: 11;
+    list-style-type: none;
+    width: 616px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+li {
+    cursor: pointer;
+}
+
+.letter {
+    background-color: darksalmon;
+    border-radius: 3px;
+    width: 21px;
+    height: 21px;
+    padding: 15px;
+    margin: 0 2px 4px;
+    text-align: center;
+}
+
+#alphabet {
+    padding: 18px 9px;
+    border-radius: 4px;
+    background: #fafafa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+    opacity: 0;
+    z-index: 38;
+    text-align: center;
+    width: 659px;
+    height: 210px;
+}
+
+#overlay {
+    z-index: 37;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    display: none;
+}
+
+.close {
+    cursor: pointer;
+    border-radius: 3px;
+    border: solid 1px black;
+    font-size: 20px;
+    float: right;
+    margin: 10px;
+    padding: 7px;
 }

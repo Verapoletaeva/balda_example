@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\PublisherInterface;
@@ -26,28 +26,18 @@ class PublishController extends AbstractController
      */
     public function publish(string $hash, PublisherInterface $publisher, Request $request, UrlGeneratorInterface $router): Response
     {
+        $body = json_decode($request->getContent(), true);
         $update = new Update(
-            'http://example.com/books/1',
-            json_encode(['status' => 'OutOfStock'])
+            $router->generate('play', ['hash' => $hash], UrlGeneratorInterface::ABSOLUTE_URL),
+            json_encode($body)
         );
 
-        // The Publisher service is an invokable object
-        $publisher($update);
+        try {
+            $publisher($update);
+        } catch (Exception $exception) {
+            return $this->json(['message' => "Failed to update status."], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-        return new Response('published!');
-//        dump(get_class($publisher));
-//        dump($router->generate('play', ['hash' => $hash], UrlGeneratorInterface::ABSOLUTE_URL));
-//        $update = new Update(
-//            $router->generate('play', ['hash' => $hash], UrlGeneratorInterface::ABSOLUTE_URL),
-//            $router->generate('play', ['hash' => $hash], UrlGeneratorInterface::ABSOLUTE_URL)
-////            $request->getContent()
-//        );
-//        dump($update->getTopics(), $update->getData());
-//
-//        // The Publisher service is an invokable object
-//        $publisher($update);
-//
-//        $response = new Response();
-//        $response->headers->set('mercure', ['subscribe' => ["http://tuto.my-website.fr/user/{$user->getId()}"]]);
+        return $this->json([]);
     }
 }

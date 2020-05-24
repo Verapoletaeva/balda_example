@@ -27,13 +27,19 @@ services:
         container_name: mercure
         image: dunglas/mercure
         environment:
-            - JWT_KEY='!MySecret!'
+            # You should definitely change all these values in production
+            - JWT_KEY=YourSecretKey
             - DEMO=1
             - ALLOW_ANONYMOUS=1
-            - PUBLISH_ALLOWED_ORIGINS='http://10.10.101.1'
-            - CORS_ALLOWED_ORIGINS='*'
+            - HEARTBEAT_INTERVAL=30s
+            - ADDR=:3000
+            - CORS_ALLOWED_ORIGINS=http://10.10.101.1
+            - PUBLISH_ALLOWED_ORIGINS=http://10.10.101.1
         ports:
-            - "${DOCKER}:9090:80"
+            - "${DOCKER}:3000:3000"
+        restart: always
+        networks:
+            - balda
 
 networks:
     balda:

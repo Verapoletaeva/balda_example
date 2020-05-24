@@ -7,15 +7,43 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<table>
-    {% for x in 0..4 %}
-        <tr>
+<div class="container">
+    <span id="turn" class="turn">Ваш ход</span>
+</div>
+<div class="container">
+    <div class="block">
+        <div class="name">Вы</div>
+        <img class="player" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGLkp0nrQiwB-JM8QjBzyKZpKqJulTwFRksgxf4YbTb4Lxv19Q&usqp=CAU">
+        <span id="player_score" class="score">Счёт: 0</span>
+    </div>
+    <div class="block">
+        <table>
             {% for y in 0..4 %}
-                <td id="{{ x~';'~y }}"></td>
+                <tr>
+                    {% for x in 0..4 %}
+                        <td id="{{ x~'_'~y }}"></td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
+        </table>
+    </div>
+    <div class="block">
+        <div class="name">Противник</div>
+        <img class="player" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGLkp0nrQiwB-JM8QjBzyKZpKqJulTwFRksgxf4YbTb4Lxv19Q&usqp=CAU">
+        <span id="opponent_score" class="score">Счёт: 0</span>
+    </div>
+</div>
+
+<div id="alphabet">
+    {% set alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'] %}
+    <ul>
+        {% for letter in alphabet %}
+            <li class="letter">{{ letter }}</li>
+        {% endfor %}
+    </ul>
+    <span id="alphabet__close" class="close">Отменить</span>
+</div>
+<div id="overlay"></div>
 <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
