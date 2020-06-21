@@ -1,8 +1,13 @@
+body {
+    font: 30px bold Geneva, Arial, Helvetica, sans-serif;
+    /*font-family: Courier New;*/
+}
+
 table {
     border-collapse: collapse;
 }
 
-table, th, td {
+.game-board table, th, td {
     border: 1px solid black;
     -webkit-user-select: none; /* Chrome all / Safari all */
     -moz-user-select: none; /* Firefox all */
@@ -17,19 +22,67 @@ td {
     cursor: pointer;
 }
 
-img {
-    border-radius: 7px;
+img.player {
+    margin: 0 10px;
+    padding: 20px;
+}
+
+div.hint {
+    position: relative;
+    float: right;
+}
+
+img.hint {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-bottom: -5px;
+    cursor: pointer;
+    float: right;
+}
+
+.hint-count {
+    position: absolute;
+    font-weight: normal;
+    font-size: 20px;
+    top: 15px;
+    right: 11px;
+    width: 100%;
+    cursor: pointer;
+    z-index: 1;
+    text-shadow: white 0 0 2px;
+}
+
+span.tooltip {
+    display: none;
+    padding: 2px 3px;
+    margin-left: 8px;
+    width: 130px;
+}
+
+.hint:hover span.tooltip {
+    display: inline;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    color: #6c6c6c;
 }
 
 .block {
-    margin: 30px;
+    margin: 0 15px;
     display: flex;
     flex-direction: column;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffecb3;
+    border-radius: 7px;
+    margin-top: 20px;
+}
+
 .container {
-    font-style: italic;
-    font-size: 30px;
     margin: 30px auto;
     display: flex;
     flex-direction: row;
@@ -37,13 +90,20 @@ img {
     white-space: nowrap;
 }
 
+span {
+    padding: 10px;
+}
+
 .turn {
-    width: 370px;
-    padding: 10px 10px;
-    margin-top: 20px;
+    width: auto;
     border-radius: 7px;
-    background-color: #a8e3ea;
+    background-color: #70dcff;
     text-align: center;
+    margin: 20px 0;
+    float: left;
+}
+#turn {
+    float: left;
 }
 
 .score {
@@ -55,14 +115,12 @@ img {
 }
 
 .name {
-    font-style: italic;
-    font-size: 30px;
     alignment: center;
     margin-bottom: 25px;
 }
 
 .green {
-    background-color: greenyellow;
+    background-color: #b0ea56;
 }
 
 ul {
@@ -78,12 +136,12 @@ li {
 }
 
 .letter {
-    background-color: darksalmon;
+    background-color: #ff9e7d;
     border-radius: 3px;
     width: 21px;
     height: 21px;
-    padding: 15px;
-    margin: 0 2px 4px;
+    padding: 10px 15px 20px 15px;
+    margin: 2px;
     text-align: center;
 }
 
@@ -102,15 +160,17 @@ li {
     z-index: 38;
     text-align: center;
     width: 659px;
-    height: 210px;
+    height: 270px;
 }
 
 #overlay {
     z-index: 37;
     position: fixed;
-    background: rgba(0,0,0,.7);
-    width: 100%; height: 100%;
-    top: 0; left: 0;
+    background: rgba(0, 0, 0, .7);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     display: none;
 }
 
@@ -122,4 +182,26 @@ li {
     float: right;
     margin: 10px;
     padding: 7px;
+}
+
+.alphabet-table tr {
+    margin: 0;
+    padding: 0;
+}
+
+.alphabet-table td {
+    margin: 0;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+table.alphabet-table {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#timeClock {
+    float: right;
 }

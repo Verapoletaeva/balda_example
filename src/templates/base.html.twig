@@ -7,40 +7,60 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div class="container">
-    <span id="turn" class="turn">Ваш ход</span>
-</div>
+{% set first = app.request.uri | last % 2 == 1 %}
 <div class="container">
     <div class="block">
-        <div class="name">Вы</div>
-        <img class="player" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGLkp0nrQiwB-JM8QjBzyKZpKqJulTwFRksgxf4YbTb4Lxv19Q&usqp=CAU">
+        <div class="column">
+            <span class="name">
+                Вы
+                <div class="hint">
+                    <div class="hint-count">3</div>
+                    <img id="hint" class="hint" src="/images/idea.png" width="30" height="30">
+                </div>
+            </span>
+            <img class="player" src="{{ first ? '/images/irish.png' : '/images/spanish.png' }}" width="100" height="100">
+        </div>
         <span id="player_score" class="score">Счёт: 0</span>
     </div>
     <div class="block">
-        <table>
+        <span class="turn">
+            <div id="turn">&nbsp</div>
+            <div id="timeClock">&nbsp</div>
+        </span>
+        <table class="game-board">
             {% for y in 0..4 %}
                 <tr>
                     {% for x in 0..4 %}
-                        <td id="{{ x~'_'~y }}"></td>
+                        <td id="{{ x~'_'~y }}" class="cell"></td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </table>
     </div>
     <div class="block">
-        <div class="name">Противник</div>
-        <img class="player" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGLkp0nrQiwB-JM8QjBzyKZpKqJulTwFRksgxf4YbTb4Lxv19Q&usqp=CAU">
+        <div class="column">
+            <span class="name">Противник</span>
+            <img class="player" src="{{ not first ? '/images/irish.png' : '/images/spanish.png' }}" width="100" height="100">
+        </div>
         <span id="opponent_score" class="score">Счёт: 0</span>
     </div>
 </div>
 
 <div id="alphabet">
     {% set alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'] %}
-    <ul>
-        {% for letter in alphabet %}
-            <li class="letter">{{ letter }}</li>
+    <table class="alphabet-table">
+        {% for i in 0..2 %}
+            <tr>
+                {% for j in 0..11 %}
+                    {% if alphabet[i*11 + j] is defined %}
+                        <td>
+                            <div id="letter" class="letter">{{ alphabet[i*11 + j] }}</div>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
     <span id="alphabet__close" class="close">Отменить</span>
 </div>
 <div id="overlay"></div>
